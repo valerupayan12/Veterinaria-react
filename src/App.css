@@ -1,0 +1,887 @@
+/* ==========================================================================
+   VETERINARIA SAN MARCOS - Hoja de estilos
+   PARTE 1: CSS ORIGINAL del proyecto HTML (css/styles.css), sin cambios de diseño.
+            (solo se quitó el fondo ::before que apuntaba a una imagen que no existía)
+   PARTE 2: ajustes para convivir con Bootstrap + estilos de los componentes nuevos.
+   PARTE 3: responsive.
+   PARTE 4: tema oscuro.
+   ========================================================================== */
+
+/* REGLA DEL CUERPO (BODY) */
+/* Define la tipografía general, texto gris oscuro y el fondo verde menta suave */
+body {
+    font-family: 'Century Gothic', 'Quicksand', sans-serif; /* Tipografía limpia y moderna */
+    color: #1e293b;                                       /* Texto principal en tono gris pizarra oscuro */
+    padding: 0;                                           /* Elimina el relleno interno por defecto */
+    margin: 0;                                            /* Elimina los márgenes del navegador */
+    position: relative;                                   /* Posicionamiento para sostener elementos absolutos */
+    min-height: 100vh;                                    /* Asegura que cubra el 100% de la altura de la pantalla */
+    background-color: #f0fdf4;                            /* Fondo base en verde menta extra claro */
+}
+
+/* BARRA SUPERIOR (.topbar) */
+.topbar {
+    background-color: #0f766e;                            /* Fondo verde agua oscuro para destacar avisos */
+    padding: 6px 0;                                       /* Espaciado interno arriba y abajo */
+}
+
+.topbar * {
+    color: #ffffff;                                       /* Todo el texto dentro de la barra va en blanco */
+}
+
+.topbar .woostify-container {
+    display: flex;                                        /* Usa flexbox para alinear elementos horizontalmente */
+    justify-content: space-between;                       /* Espacia los ítems a los extremos y centro */
+    align-items: center;                                  /* Centra verticalmente los elementos */
+    flex-wrap: wrap;                                      /* Permite reordenar si la pantalla es muy pequeña */
+}
+
+.woostify-container {
+    max-width: 100%;                                      /* Ocupa el ancho máximo */
+    margin-left: auto;                                    /* Centra el contenedor a la izquierda */
+    margin-right: auto;                                   /* Centra el contenedor a la derecha */
+    padding-left: 15px;                                   /* Espacio interno a la izquierda */
+    padding-right: 15px;                                  /* Espacio interno a la derecha */
+}
+
+.topbar-slider {
+    background-color: #14b8a6;                            /* Fondo turquesa intermedio */
+}
+
+.topbar-slider .slider-wrapper {
+    padding: 5px 0;                                       /* Relleno interno del slider */
+}
+
+.topbar-slider * {
+    color: #ffffff;                                       /* Texto blanco en el slider */
+}
+
+.topbar-slider .flickity-prev-next-button svg {
+    fill: #ffffff;                                        /* Color blanco de flechas SVG */
+}
+
+.topbar-slider .slick-slider svg {
+    fill: #ffffff;                                        /* Color blanco para iconos del carrusel */
+}
+
+/* ESTRUCTURA Y NAVEGACIÓN */
+/* REGLA 1: ENCABEZADO (#encabezado) */
+#encabezado {
+    background-color: #00BFA6;                              /* Fondo calipso sólido */
+    color: #ffffff;                                          /* Texto en blanco para alto contraste */
+    text-align: center;                                      /* Centra títulos, descripciones e imágenes */
+    padding: 25px 15px;                                      /* Espaciado interno superior e inferior */
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);         /* Sombra suave e inferior verde agua */
+}
+
+/* REGLA 2: LISTA DE NAVEGACIÓN (#menu-principal ul) */
+#menu-principal ul {
+    list-style: none;                                     /* Elimina los viñetas circulares por defecto */
+    display: flex;                                        /* Dispone los elementos horizontalmente en línea */
+    gap: 20px;                                            /* Espacio de separación entre cada botón */
+    justify-content: center;                              /* Centra la lista de botones */
+    padding: 0;                                           /* Elimina los márgenes internos */
+}
+
+/* REGLA 3: ENLACES DEL MENÚ (#menu-principal ul li a) */
+#menu-principal ul li a {
+    text-decoration: none;                                /* Quita el subrayado a las ligas HTML */
+    color: #ffffff;                                       /* Texto blanco para los botones */
+    background-color: rgba(255, 255, 255, 0.2);          /* Fondo cápsula blanco semi-transparente */
+    padding: 8px 18px;                                    /* Tamaño del botón (arriba/abajo y lados) */
+    border-radius: 20px;                                  /* Redondea los bordes formando una píldora */
+    font-size: 14px;                                      /* Tamaña de letra moderado */
+    font-weight: 500;                                     /* Grosor de letra intermedio */
+    transition: all 0.3s ease;                            /* Suaviza los efectos al pasar el mouse */
+}
+
+/* REGLA 4: CONTENEDOR PRINCIPAL (#contenido) */
+#contenido {
+    width: 90%;                                           /* Ocupa el 90% del ancho del dispositivo */
+    max-width: 1200px;                                    /* Ancho máximo en monitores grandes */
+    margin: 20px auto;                                    /* Centra automáticamente la sección */
+}
+
+/* REGLA 5: CONTENEDORES DE SECCIÓN (.seccion) */
+.seccion {
+    background-color: #ffffff;                            /* Fondo blanco limpio para las cajas de contenido */
+    border-radius: 16px;                                  /* Esquinas suavemente redondeadas */
+    padding: 20px;                                        /* Espaciado interno dentro del bloque */
+    margin-bottom: 20px;                                  /* Separación entre secciones consecutivas */
+    border: 1px solid #a7f3d0;                            /* Borde sutil en verde menta pastel */
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.12);       /* Sombra difuminada verde agua */
+}
+
+/* TARJETAS */
+
+/* REGLA 6: TARJETA DE PRODUCTO (.tarjeta) */
+.tarjeta {
+    background-color: #ffffff;                            /* Fondo blanco de la tarjeta */
+    border: 2px solid #6ee7b7;                            /* Borde definido en verde agua claro */
+    border-radius: 12px;                                  /* Redondeado de esquinas */
+    padding: 12px;                                        /* Relleno interno de la tarjeta */
+    box-shadow: 0 3px 10px rgba(16, 185, 129, 0.15);       /* Sombra ligera para dar efecto 3D */
+    transition: all 0.3s ease;                            /* Transición suave al interactuar */
+    display: flex;                                        /* Flexbox vertical */
+    flex-direction: column;                               /* Alinea foto, título y párrafo en columna */
+    align-items: center;                                  /* Centra los elementos internos */
+    text-align: center;                                  /* Centra los textos */
+    height: auto;                                         /* Ajusta la altura dinámicamente */
+}
+
+/* REGLA 7: CUADRÍCULA DE GALERÍA (.galeria) */
+.galeria {
+    display: grid;                                        /* Utiliza la cuadrícula de CSS */
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Columnas responsivas de al menos 160px */
+    gap: 15px;                                            /* Espaciado entre tarjetas */
+    justify-content: center;                              /* Centra la grilla */
+    width: 100%;                                          /* Ocupa todo el espacio de la sección */
+}
+
+/* REGLA 8: PIE DE PÁGINA (#pie) */
+#pie {
+    background-color: #0f766e;                            /* Verde agua oscuro de excelente legibilidad */
+    color: #f0fdf4;                                       /* Texto blanco con matiz de menta clara */
+    font-size: 14px;                                      /* Tamaño de texto estándar para pie */
+    text-align: center;                                  /* Centrado del texto */
+    padding: 15px;                                        /* Espaciado interno */
+    margin-top: 20px;                                     /* Separación superior respecto al contenido */
+}
+
+/* REGLA 9: EFECTO INTERACTIVO DE TARJETA (.tarjeta:hover) */
+.tarjeta:hover {
+    box-shadow: 0 3px 10px rgba(16, 185, 129, 0.15);      /* Mantiene la sombra original */
+    border-color: #6ee7b7;                                /* Mantiene el borde original */
+}
+
+/* BOTONES, FORMULARIOS Y DETALLES */
+
+/* REGLA 10: BOTÓN PRINCIPAL (button) */
+button {
+    background-color: #10b981;                            /* Fondo verde menta para los botones de acción */
+    color: #ffffff;                                       /* Texto en color blanco puro */
+    border: none;                                         /* Quita el borde por defecto */
+    border-radius: 20px;                                  /* Esquinas tipo píldora */
+    padding: 10px 22px;                                   /* Tamaño y relleno del botón */
+    font-size: 14px;                                      /* Tamaño de letra legible */
+    font-weight: bold;                                    /* Resalta el texto en negrita */
+    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.25);       /* Sombra inferior del botón */
+    transition: background-color 0.3s, transform 0.2s;    /* Animación de cambio de estado */
+}
+
+/* REGLA 11: INTERACCIÓN EN BOTONES (button:hover) */
+button:hover {
+    background-color: #059669;                            /* Verde más intenso al pasar el cursor */
+    cursor: pointer;                                      /* Muestra el puntero de mano */
+    transform: translateY(-2px);                         /* Eleva ligeramente el botón */
+    box-shadow: 0 6px 14px rgba(5, 150, 105, 0.35);       /* Sombra proyectada mayor */
+}
+
+/* REGLA 12: BOTÓN DE LIMPIAR (button[type="reset"]) */
+button[type="reset"] {
+    background-color: #ffffff;                            /* Fondo blanco secundario */
+    color: #10b981;                                       /* Texto verde menta */
+    border: 2px solid #10b981;                            /* Borde de color verde menta */
+}
+
+/* REGLA 13: INTERACCIÓN EN ENLACES DE MENÚ (#menu-principal ul li a:hover) */
+#menu-principal ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.45);        /* Aumenta la opacidad del fondo blanco al pasar el cursor */
+    color: #064e3b;                                       /* Oscurece el texto a verde bosque para mayor legibilidad */
+}
+
+/* REGLA 14: IMÁGENES DE TARJETA (.espacio-imagen, .tarjeta img) */
+.espacio-imagen, .tarjeta img {
+    width: 100%;                                          /* Imagen expandida a todo el ancho disponible */
+    height: 120px;                                        /* Altura fija uniforme para todas las fotos */
+    object-fit: contain;                                  /* Contiene la imagen completa sin recortarla */
+    background-color: #ecfdf5;                            /* Fondo de marco menta tenue */
+    border-radius: 8px;                                   /* Esquinas redondeadas para la imagen */
+    margin-bottom: 8px;                                   /* Separa la imagen del título del producto */
+}
+
+/* REGLA 15: CAMPOS DE ENTRADA (input) */
+input {
+    padding: 10px 14px;                                   /* Relleno cómodo para escribir dentro */
+    border: 1.5px solid #a7f3d0;                          /* Borde sutil menta */
+    border-radius: 10px;                                  /* Bordes suavizados */
+    outline: none;                                        /* Quita la línea de contorno azul por defecto */
+    background-color: #f0fdf4;                            /* Fondo suave verde menta */
+    transition: border-color 0.3s;                        /* Suaviza el cambio de foco */
+}
+
+/* REGLA 16: CAMPO DE ENTRADA ACTIVO (input:focus) */
+input:focus {
+    border-color: #059669;                                /* Borde verde intenso cuando el usuario escribe */
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);        /* Anillo resplandeciente exterior */
+}
+
+/* REGLA 17: TÍTULOS DE SECCIÓN (.seccion h2) */
+.seccion h2 {
+    font-size: 22px;                                      /* Tamaño jerárquico de título */
+    color: #0f766e;                                       /* Color verde agua institucional */
+    margin-bottom: 12px;                                  /* Separación del texto inferior */
+    border-bottom: 3px solid #34d399;                      /* Subrayado decorativo en verde brillante */
+    display: inline-block;                                /* El subrayado toma solo el largo de las palabras */
+    padding-bottom: 4px;                                  /* Espacio entre las letras y el subrayado */
+}
+
+/* REGLA 18: ÁREA DE TEXTO EXTENSA (textarea) */
+textarea {
+    resize: none;                                         /* Desactiva el cambio de tamaño manual */
+    width: 100%;                                          /* Se expande al ancho completo de su marco */
+    border-radius: 8px;                                   /* Esquinas redondeadas */
+    border: 1.5px solid #a7f3d0;                          /* Borde en tono menta pastel */
+    padding: 10px;                                        /* Espaciado interno para texto */
+}
+
+/* REGLA 19: ESPACIADO DE PÁRRAFOS (.seccion p) */
+.seccion p {
+    line-height: 1.5;                                     /* Interlineado cómodo para facilitar la lectura */
+}
+
+/* REGLA 20: UNIFORMIDAD DE TEXTO (::first-letter) */
+.tarjeta p::first-letter,
+.tarjeta h3::first-letter,
+.seccion p::first-letter {
+    font-size: inherit;                                   /* Mantiene tamaño normal en primeras letras */
+    font-weight: inherit;                                 /* Mantiene grosor normal */
+    color: inherit;                                       /* Mantiene el color regular */
+}
+
+/* 10 ESTILOS DIFERENTES */
+
+/* REGLA 21: PROPIEDAD 1 (Espaciado de letras (letter-spacing)) */
+#encabezado h1 {
+    letter-spacing: 1px;                                 /* Agrega espacio entre letras del título principal */
+}
+
+/* REGLA 22: PROPIEDAD 2 (Transformación de texto (text-transform)) */
+#menu-principal ul li a {
+    text-transform: uppercase;                            /* Muestra automáticamente en mayúsculas las opciones */
+}
+
+/* REGLA 23: PROPIEDAD 3 (Filtros visuales (filter)) */
+.seccion h2 {
+    filter: drop-shadow(0px 2px 3px rgba(15, 118, 110, 0.2)); /* Crea sombra suave bajo los títulos principales */
+}
+
+/* REGLA 24: PROPIEDAD 4 (Control de desbordamiento (overflow)) */
+.tarjeta {
+    overflow: hidden;                                     /* Recorta cualquier elemento que sobresalga de la caja */
+}
+
+/* REGLA 25: PROPIEDAD 5 (Estilo de cursor (cursor)) */
+.tarjeta:hover {
+    cursor: default;                                      /* Mantiene el cursor normal */
+}
+
+/* REGLA 26: PROPIEDAD 6 (Selección de texto (user-select)) */
+button {
+    user-select: none;                                    /* Evita la selección de texto azul al dar doble clic */
+}
+
+/* REGLA 27: PROPIEDAD 7 (Nivel de opacidad (opacity)) */
+#pie {
+    opacity: 0.95;                                        /* Leve transparencia estética en el pie */
+}
+
+/* REGLA 28: PROPIEDAD 8 (Viñetas de lista (list-style-type)) */
+.seccion ul {
+    list-style-type: square;                              /* Cambia viñetas circulares por viñetas cuadradas */
+}
+
+/* REGLA 29: PROPIEDAD 9 (Color de acento (accent-color)) */
+input[type="checkbox"], input[type="radio"] {
+    accent-color: #10b981;                                /* Colorea las casillas activadas en verde menta */
+}
+
+/* REGLA 30: PROPIEDAD 10 (Filtro de fondo (backdrop-filter)) */
+#menu-principal ul li a {
+    backdrop-filter: blur(4px);                           /* Aplica desenfoque traslúcido tipo cristal al menú */
+}
+
+/* REGLA PARA EL LOGO DEL HEADER (TAMAÑO PEQUEÑO) */
+.logo-header {
+    max-width: 300px;                                     /* Controla el tamaño (reducido a 150px) */
+    height: auto;                                         /* Mantiene la proporción para que no se deforme */
+    display: block;                                       /* Permite centrar la imagen */
+    margin: 15px auto 0 auto;                             /* Centrado horizontal con margen superior */
+    border-radius: 8px;                                   /* Redondeado suave en las esquinas */
+}
+/* REGLA PARA EL VIDEO PROMOCIONAL */
+.contenedor-video {
+    display: flex;
+    justify-content: center;                             /* Centra el video horizontalmente */
+    margin: 20px 0;                                       /* Margen arriba y abajo */
+}
+
+.video-promocional {
+    width: 100%;
+    max-width: 500px;                                     /* Tamaño reducido para que no ocupe tanto espacio */
+    height: auto;
+    border-radius: 12px;
+    border: 3px solid #6ee7b7;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+/* ==========================
+   DETALLE DEL PRODUCTO
+   ========================== */
+
+/* Esta sección controla el diseño de la página de producto individual. */
+.product-detail {
+    padding: 30px; /* Espacio interno para separar el contenido del borde */
+}
+
+/* La estructura del detalle usa dos columnas: imagen a la izquierda y texto a la derecha. */
+.product-layout {
+    display: grid; /* Activa la cuadrícula de CSS */
+    grid-template-columns: 1fr 1.1fr; /* Dos columnas, la segunda es un poco más ancha */
+    gap: 30px; /* Separación entre columnas */
+    align-items: center; /* Alinea verticalmente los elementos */
+}
+
+/* Caja contenedora de la imagen principal del producto. */
+.product-image-box {
+    background: #f0fdf4; /* Fondo suave verde menta */
+    border: 2px solid #a7f3d0; /* Borde del mismo tono de la paleta */
+    border-radius: 16px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    display: flex; /* Centra la imagen dentro del contenedor */
+    align-items: center; /* Alinea verticalmente */
+    justify-content: center; /* Alinea horizontalmente */
+    min-height: 420px; /* Altura mínima para mantener tamaño uniforme */
+}
+
+/* Ajusta la imagen principal para que se vea completa sin deformarse. */
+.product-main-image {
+    max-width: 100%; /* No supera el ancho del contenedor */
+    max-height: 420px; /* Limita la altura máxima */
+    object-fit: contain; /* Muestra la imagen completa sin recortarla */
+    display: block; /* Evita espacios extra debajo de la imagen */
+}
+
+/* Contenedor con el texto e información del producto. */
+.product-info {
+    display: flex; /* Organiza los elementos internos en columnas */
+    flex-direction: column; /* Los pone uno debajo del otro */
+    gap: 14px; /* Espacio entre cada bloque */
+}
+
+/* Etiqueta tipo "Más vendido" */
+.product-badge {
+    display: inline-block; /* Ocupa solo el ancho del contenido */
+    width: fit-content; /* Ajusta el ancho al texto */
+    background: #ecfdf5; /* Fondo claro */
+    color: #0f766e; /* Texto verde oscuro */
+    border: 1px solid #6ee7b7; /* Borde ondulado en verde */
+    border-radius: 999px; /* Bordes redondeados */
+    padding: 8px 12px; /* Espacio interno */
+    font-weight: 700; /* Texto grueso */
+    font-size: 12px; /* Tamaño pequeño */
+    text-transform: uppercase; /* Convierte a mayúsculas */
+    letter-spacing: 1px; /* Espacio entre letras */
+}
+
+/* Estilo del nombre del producto principal */
+.product-info h2 {
+    margin: 0; /* Elimina margen por defecto */
+    color: #0f766e; /* Color institucional */
+    font-size: 34px; /* Tamaño grande para destacar */
+}
+
+/* Fila donde va el precio actual y el precio tachado */
+.product-price-row {
+    display: flex; /* Organiza precio y comparación en línea */
+    align-items: center; /* Los centra verticalmente */
+    gap: 12px; /* Separación entre ambos */
+}
+
+/* Precio principal del producto */
+.product-price {
+    font-size: 38px; /* Tamaño grande */
+    font-weight: 800; /* Muy grueso */
+    color: #065f46; /* Verde oscuro */
+}
+
+/* Precio anterior para mostrar oferta o descuento */
+.product-compare {
+    font-size: 18px; /* Un poco más pequeño */
+    color: #64748b; /* Gris azulado */
+    text-decoration: line-through; /* Tacha el precio */
+}
+
+/* Descripción más detallada del producto */
+.product-description {
+    margin: 0; /* Elimina margen */
+    line-height: 1.7; /* Altura de línea cómoda */
+    color: #334155; /* Color gris oscuro */
+    font-size: 16px; /* Tamaño legible */
+}
+
+/* Lista de beneficios / características del producto */
+.product-benefits {
+    margin: 0; /* Elimina margen */
+    padding-left: 20px; /* Añade espacio a la izquierda para las viñetas */
+    color: #1f2937; /* Texto oscuro */
+    line-height: 1.8; /* Espaciado entre líneas */
+}
+
+/* Área para los botones Comprar / Ver más */
+.action-row {
+    display: flex; /* Los pone en línea */
+    gap: 12px; /* Espacio entre ellos */
+    flex-wrap: wrap; /* Si no caben, bajan a otra línea */
+    margin-top: 6px; /* Separación */
+}
+
+/* Estilo común para botones primarios y secundarios */
+.btn-primary,
+.btn-secondary {
+    border: none; /* Quita el borde */
+    border-radius: 12px; /* Bordes suaves */
+    padding: 14px 20px; /* Relleno */
+    font-weight: 700; /* Texto en negrita */
+    cursor: pointer; /* Cursor con mano */
+    transition: all 0.3s ease; /* Suaviza cambios */
+}
+
+/* Botón principal para comprar */
+.btn-primary {
+    background: #10b981; /* Verde principal */
+    color: white; /* Texto en blanco */
+}
+
+/* Botón secundario para ver más */
+.btn-secondary {
+    background: #ecfdf5; /* Fondo claro */
+    color: #0f766e; /* Texto verde oscuro */
+    border: 1px solid #6ee7b7; /* Borde verde */
+}
+
+/* Efecto visual al pasar mouse por los botones */
+.btn-primary:hover,
+.btn-secondary:hover {
+    transform: translateY(-2px); /* Sube levemente el botón */
+}
+
+/* Ventana emergente para reproducir el video del producto en ver mas permacat. */
+.video-content {
+    margin-top: 12px;
+    padding: 12px;
+    border: 2px solid #6ee7b7;
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.video-content video {
+    display: block;
+    width: 80%;
+    border-radius: 5px;
+}
+
+/* Caja de métodos de pago */
+.payment-box {
+    border: 1px solid #a7f3d0; /* Borde suave */
+    border-radius: 12px; /* Bordes redondeados */
+    background: #f0fdf4; /* Fondo claro */
+    padding: 16px; /* Espacio interior */
+}
+
+/* Título de la sección de pagos */
+.payment-box h3 {
+    margin: 0 0 10px 0; /* Elimina margen superior */
+    color: #0f766e; /* Verde institucional */
+}
+
+/* Contenedor de las opciones de pago */
+.payment-options {
+    display: flex; /* En línea */
+    flex-wrap: wrap; /* Ajusta si no caben */
+    gap: 10px; /* Separación */
+}
+
+/* Cada opción de método de pago */
+.payment-options span {
+    background: #ffffff; /* Fondo blanco */
+    color: #0f172a; /* Texto oscuro */
+    border: 1px solid #bbf7d0; /* Borde claro */
+    border-radius: 999px; /* Redondeado */
+    padding: 8px 12px; /* Relleno */
+    font-size: 13px; /* Tamaño pequeño */
+    font-weight: 600; /* Medio grueso */
+}
+
+/* Información extra para envío, garantía y stock */
+.extra-info {
+    display: grid; /* Cuadrícula */
+    grid-template-columns: repeat(3, minmax(180px, 1fr)); /* Tres columnas */
+    gap: 16px; /* espacio */
+    margin-top: 24px; /* separa del contenido principal */
+}
+
+/* Tarjetas pequeñas de información adicional */
+.info-card {
+    background: #ffffff; /* Fondo blanco */
+    border: 1px solid #a7f3d0; /* Borde suave */
+    border-radius: 12px; /* Bordes redondeados */
+    padding: 18px; /* Espacio interno */
+    box-shadow: 0 3px 10px rgba(16, 185, 129, 0.08); /* Sombra suave */
+}
+
+/* Título de cada tarjeta de información */
+.info-card h3 {
+    margin-top: 0; /* Elimina margen superior */
+    color: #0f766e; /* Verde principal */
+}
+
+/* Texto de cada tarjeta de información */
+.info-card p {
+    margin: 0; /* Elimina margen */
+    line-height: 1.6; /* Altura de línea */
+    color: #475569; /* Gris medio */
+}
+/* ==========================================================================
+   PARTE 2: ADAPTACIÓN A REACT / BOOTSTRAP
+   ========================================================================== */
+
+/* --- Restaurar los valores por defecto del navegador que Bootstrap (reboot) cambia,
+       para que los títulos, párrafos y listas se vean igual que en el sitio original --- */
+body { line-height: normal; }
+h1, h2, h3, h4, h5, h6 { font-weight: bold; line-height: normal; }
+h1 { font-size: 2em; margin: 0.67em 0; }
+h2 { font-size: 1.5em; margin: 0.83em 0; }
+h3 { font-size: 1.17em; margin: 1em 0; }
+p { margin: 1em 0; }
+ul { padding-left: 40px; margin: 1em 0; }
+img { vertical-align: baseline; }
+.app { min-height: 100vh; background-color: #f0fdf4; color: #1e293b; }
+.seccion h2, .seccion h3 { color: inherit; }
+.seccion h2 { color: #0f766e; margin: 0 0 12px 0; }
+.info-card h3, .payment-box h3 { color: #0f766e; }
+
+/* --- Fieldset y legend (Bootstrap los deja sin borde) --- */
+fieldset { border: 2px groove #c0c0c0; padding: 0.35em 0.75em 0.625em; margin: 0 2px 16px; min-width: 0; }
+legend { float: none; width: auto; font-size: inherit; padding: 0 4px; margin-bottom: 0; }
+
+/* --- Campos de React Bootstrap con el look verde menta del sitio original --- */
+.form-control, .form-select {
+    border: 1.5px solid #a7f3d0;
+    border-radius: 10px;
+    background-color: #f0fdf4;
+}
+.form-control:focus, .form-select:focus {
+    background-color: #f0fdf4;
+    border-color: #059669;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+}
+.form-control.is-invalid, .form-select.is-invalid { border-color: #dc3545; }
+.form-label { font-weight: 600; margin-bottom: 4px; }
+.form-check-input { padding: 0; background-color: #ffffff; border: 1px solid rgba(0, 0, 0, 0.35); border-radius: 0.25em; box-shadow: none; }
+.form-check-input[type="radio"] { border-radius: 50%; }
+.form-check-input:focus { box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2); }
+.form-check-input:checked { background-color: #10b981; border-color: #10b981; }
+textarea.form-control { resize: none; }
+
+/* --- Botones: el botón "limpiar" mantiene el estilo del button[type="reset"] original --- */
+.boton-limpiar {
+    background-color: #ffffff;
+    color: #10b981;
+    border: 2px solid #10b981;
+}
+.boton-limpiar:hover { background-color: #ecfdf5; color: #059669; }
+button:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+/* --- Enlaces que se ven como botones (mismas reglas que "button" del CSS original) --- */
+.boton-enlace {
+    display: inline-block;
+    background-color: #10b981;
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 22px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.25);
+    transition: background-color 0.3s, transform 0.2s;
+}
+.boton-enlace:hover {
+    background-color: #059669;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(5, 150, 105, 0.35);
+}
+a.btn-primary, a.btn-secondary { display: inline-block; text-decoration: none; }
+a.btn-primary { color: #ffffff; }
+a.btn-primary:hover { color: #ffffff; background-color: #10b981; }
+.btn-primary:disabled, .btn-secondary:disabled { opacity: 0.55; }
+.btn-primary:hover, .btn-secondary:hover { background-color: inherit; }
+.btn-primary:hover { background: #059669; }
+.btn-secondary:hover { background: #d1fae5; color: #0f766e; }
+
+/* --- Menú principal: enlaces activos y botón "Cerrar sesión" con aspecto de cápsula --- */
+#menu-principal ul li a.active { background-color: rgba(255, 255, 255, 0.45); color: #064e3b; }
+#menu-principal ul li button {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-family: inherit;
+    line-height: normal;
+    backdrop-filter: blur(4px);
+    box-shadow: none;
+}
+#menu-principal ul li button:hover { background-color: rgba(255, 255, 255, 0.45); color: #064e3b; transform: none; box-shadow: none; }
+#menu-principal ul { margin: 16px 0; align-items: center; }
+#menu-principal ul li { display: flex; align-items: center; }
+.boton-menu { display: none; margin: 12px auto 0; background-color: rgba(255, 255, 255, 0.25); box-shadow: none; }
+
+/* --- Topbar: saludo (izquierda), aviso (centro), tema (derecha) --- */
+.topbar-left, .topbar-right { flex: 1; }
+.topbar-right { text-align: right; }
+.topbar-center { text-align: center; }
+.boton-tema {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 1px 12px;
+    font-size: 12px;
+    line-height: 1.3;
+    box-shadow: none;
+}
+.boton-tema:hover { background-color: rgba(255, 255, 255, 0.35); transform: none; box-shadow: none; }
+
+/* --- Encabezado de la página Productos (imagen grande 800x400 del original) --- */
+.imagen-header-grande { display: block; width: 800px; max-width: 100%; height: auto; margin: 15px auto 0; }
+
+/* --- Tarjetas de producto --- */
+.precio { font-weight: bold; color: #065f46; }
+.tarjeta p { margin: 0 0 10px 0; }
+.galeria-productos { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); }
+.acciones-tarjeta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: auto;
+    margin-bottom: 8px;
+}
+.tarjeta button, .tarjeta .boton-enlace { padding: 8px 14px; font-size: 13px; }
+.boton-favorito, .tarjeta .boton-favorito {
+    background-color: #e2e2e2;
+    color: #333;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-weight: bold;
+    box-shadow: none;
+}
+.boton-favorito:hover { background-color: #d4d4d4; box-shadow: none; }
+.boton-favorito.activo, .tarjeta .boton-favorito.activo { background-color: #f33587; color: #ffffff; }
+.boton-favorito.activo:hover { background-color: #e0246f; }
+.mensaje-vacio { padding: 12px; background: #ecfdf5; border-radius: 10px; }
+.contador-resultados { margin: 10px 0; font-size: 14px; color: #475569; }
+.filtros-productos { margin: 12px 0 4px; }
+
+/* --- Detalle del producto --- */
+.action-row .boton-favorito { border-radius: 12px; padding: 14px 20px; }
+.video-details summary { list-style: none; display: inline-block; cursor: pointer; }
+.video-details summary::-webkit-details-marker { display: none; }
+
+/* --- Carrito --- */
+.carrito-layout { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; align-items: start; }
+.lista-carrito { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.item-carrito {
+    display: grid;
+    grid-template-columns: 80px 1fr auto auto auto;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid #a7f3d0;
+    border-radius: 12px;
+    padding: 10px;
+    background: #ffffff;
+}
+.item-carrito img { width: 80px; height: 80px; object-fit: contain; background: #ecfdf5; border-radius: 8px; }
+.item-carrito h3 { font-size: 15px; margin: 0 0 4px 0; }
+.control-cantidad { display: flex; align-items: center; gap: 8px; }
+.control-cantidad button { padding: 4px 12px; font-size: 16px; }
+.control-cantidad span { min-width: 22px; text-align: center; font-weight: bold; }
+.item-carrito-subtotal { font-weight: bold; min-width: 80px; text-align: right; }
+.carrito-pago { border: 1px solid #a7f3d0; border-radius: 12px; padding: 16px; background: #f0fdf4; }
+.carrito-pago h3 { color: #0f766e; margin-top: 16px; }
+.resumen-compra { margin: 0 0 8px; }
+.resumen-compra div { display: flex; justify-content: space-between; padding: 4px 0; }
+.resumen-compra dt, .resumen-compra dd { margin: 0; font-weight: normal; }
+.resumen-total { border-top: 2px solid #34d399; margin-top: 6px; padding-top: 8px !important; font-size: 18px; font-weight: bold; }
+.resumen-total dt, .resumen-total dd { font-weight: bold; }
+
+/* --- Panel de control (tabla) --- */
+.tabla-responsive { width: 100%; overflow-x: auto; }
+.tabla-admin { width: 100%; border-collapse: collapse; min-width: 560px; }
+.tabla-admin th { background: #ecfdf5; color: #0f766e; text-align: left; }
+.tabla-admin th, .tabla-admin td { padding: 8px 10px; border-bottom: 1px solid #a7f3d0; vertical-align: middle; }
+.tabla-admin img { width: 52px; height: 52px; object-fit: contain; background: #ecfdf5; border-radius: 6px; }
+.tabla-admin button { padding: 6px 14px; font-size: 13px; }
+.nota-imagen { font-size: 14px; color: #475569; }
+
+/* --- Perfil --- */
+.datos-perfil { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px 20px; margin-bottom: 16px; }
+.fila-dato { background: #f0fdf4; border: 1px solid #a7f3d0; border-radius: 10px; padding: 10px 14px; }
+.fila-dato dt { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #0f766e; }
+.fila-dato dd { margin: 2px 0 0; font-weight: 600; word-break: break-word; }
+.lista-favoritos { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.lista-favoritos li { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; border: 1px solid #a7f3d0; border-radius: 12px; padding: 8px 12px; }
+.lista-favoritos img { width: 56px; height: 56px; object-fit: contain; background: #ecfdf5; border-radius: 8px; }
+.lista-favoritos a { flex: 1; min-width: 160px; color: #0f766e; font-weight: 600; }
+
+/* --- Login: se conserva el diseño de loginstyle.css, limitado a esta página con .pagina-login --- */
+.pagina-login {
+    background-color: #f0fdf4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('./assets/img/fondologin.jpg');
+    background-size: cover;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.pagina-login .form-login {
+    background-color: rgb(52, 57, 73);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.822);
+    width: 320px;
+    max-width: 92vw;
+    text-align: center;
+}
+.pagina-login h1 { color: #369789; margin: 20px 0; }
+.pagina-login .form-login p { color: #ffffff; margin: 0 0 12px; }
+.pagina-login .form-login .form-control {
+    width: 100%;
+    padding: 12px 15px;
+    background: none;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 18px;
+    border-radius: 2px;
+}
+.pagina-login .form-login .form-control::placeholder { color: rgba(255, 255, 255, 0.6); }
+.pagina-login .form-login .form-control:focus {
+    background: none;
+    color: white;
+    border-color: #00ffff;
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+}
+.pagina-login .form-login .form-control.is-invalid { background-image: none; border: 1px solid #ff6b6b; }
+.pagina-login .invalid-feedback { color: #ff9b9b; text-align: left; }
+.pagina-login .error-login { color: #ff9b9b; margin: 8px 0; }
+.entrar-btn, .registrar-btn, .volver-btn {
+    display: inline-block;
+    background: linear-gradient(90deg, #00ffff, #00ff80);
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    color: rgb(130, 130, 212);
+    font-size: 13.3333px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.4s;
+    margin-top: 10px;
+    text-decoration: none;
+    box-shadow: none;
+}
+.entrar-btn:hover, .registrar-btn:hover, .volver-btn:hover {
+    background: linear-gradient(90deg, #00ff80, #00ffff);
+    box-shadow: 0.5px 15px #5f9979;
+    color: rgb(130, 130, 212);
+    transform: none;
+}
+
+/* ==========================================================================
+   PARTE 3: RESPONSIVE (celulares y tablets)
+   ========================================================================== */
+@media (max-width: 992px) {
+    .carrito-layout { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+    /* Menú tipo "hamburguesa": se oculta y se abre con el botón Menú */
+    .boton-menu { display: block; }
+    #menu-principal { display: none; }
+    #menu-principal.menu-abierto { display: block; }
+    #menu-principal ul { flex-direction: column; align-items: center; gap: 10px; }
+
+    .topbar .woostify-container { flex-direction: column; gap: 4px; text-align: center; }
+    .topbar-left, .topbar-right { flex: none; text-align: center; }
+
+    /* Detalle de producto en una sola columna */
+    .product-layout { grid-template-columns: 1fr; }
+    .product-image-box { min-height: 240px; }
+    .product-info h2 { font-size: 26px; }
+    .product-price { font-size: 30px; }
+    .extra-info { grid-template-columns: 1fr; }
+    .product-detail { padding: 16px; }
+    .video-content video { width: 100%; }
+
+    /* Carrito: cada fila en dos líneas */
+    .item-carrito { grid-template-columns: 64px 1fr; }
+    .item-carrito img { width: 64px; height: 64px; }
+    .item-carrito-subtotal { text-align: left; }
+
+    .seccion { padding: 14px; }
+    .seccion h2 { font-size: 19px; }
+}
+
+/* ==========================================================================
+   PARTE 4: TEMA OSCURO (se activa con data-tema="oscuro" en el contenedor .app)
+   ========================================================================== */
+.app[data-tema="oscuro"] { background-color: #0b1a18; color: #e2f5ef; }
+.app[data-tema="oscuro"] .seccion,
+.app[data-tema="oscuro"] .tarjeta,
+.app[data-tema="oscuro"] .info-card,
+.app[data-tema="oscuro"] .item-carrito,
+.app[data-tema="oscuro"] .video-content,
+.app[data-tema="oscuro"] .lista-favoritos li {
+    background-color: #12302b;
+    border-color: #0f766e;
+    color: #e2f5ef;
+}
+.app[data-tema="oscuro"] .seccion h2,
+.app[data-tema="oscuro"] .product-info h2,
+.app[data-tema="oscuro"] .info-card h3,
+.app[data-tema="oscuro"] .payment-box h3,
+.app[data-tema="oscuro"] .carrito-pago h3,
+.app[data-tema="oscuro"] .lista-favoritos a { color: #5eead4; }
+.app[data-tema="oscuro"] .product-price,
+.app[data-tema="oscuro"] .precio { color: #6ee7b7; }
+.app[data-tema="oscuro"] .product-description,
+.app[data-tema="oscuro"] .product-benefits,
+.app[data-tema="oscuro"] .info-card p,
+.app[data-tema="oscuro"] .contador-resultados,
+.app[data-tema="oscuro"] .nota-imagen { color: #cfe9e1; }
+.app[data-tema="oscuro"] .product-image-box,
+.app[data-tema="oscuro"] .payment-box,
+.app[data-tema="oscuro"] .carrito-pago,
+.app[data-tema="oscuro"] .fila-dato,
+.app[data-tema="oscuro"] .mensaje-vacio { background-color: #0f2623; border-color: #0f766e; color: #e2f5ef; }
+.app[data-tema="oscuro"] .fila-dato dt { color: #5eead4; }
+.app[data-tema="oscuro"] .payment-options span { background: #12302b; color: #e2f5ef; border-color: #0f766e; }
+.app[data-tema="oscuro"] .btn-secondary { background: #134e4a; color: #ccfbf1; border-color: #0f766e; }
+.app[data-tema="oscuro"] .form-control,
+.app[data-tema="oscuro"] .form-select { background-color: #0b1f1c; color: #e2f5ef; border-color: #0f766e; }
+.app[data-tema="oscuro"] .form-control::placeholder { color: #7aa89d; }
+.app[data-tema="oscuro"] .form-control:focus,
+.app[data-tema="oscuro"] .form-select:focus { background-color: #0b1f1c; color: #e2f5ef; border-color: #34d399; }
+.app[data-tema="oscuro"] fieldset { border-color: #0f766e; }
+.app[data-tema="oscuro"] .boton-limpiar { background: transparent; color: #6ee7b7; border-color: #34d399; }
+.app[data-tema="oscuro"] .tabla-admin th { background: #0f2623; color: #5eead4; }
+.app[data-tema="oscuro"] .tabla-admin th,
+.app[data-tema="oscuro"] .tabla-admin td { border-bottom-color: #0f766e; }
+.app[data-tema="oscuro"] .boton-favorito { background-color: #2b3f3b; color: #e2f5ef; }
+.app[data-tema="oscuro"] .boton-favorito.activo { background-color: #f33587; color: #ffffff; }
+.app[data-tema="oscuro"] .resumen-total { border-top-color: #34d399; }
+.app[data-tema="oscuro"] .form-check-label { color: #e2f5ef; }
