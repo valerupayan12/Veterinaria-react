@@ -376,7 +376,7 @@ input[type="checkbox"], input[type="radio"] {
     background: #ecfdf5; /* Fondo claro */
     color: #0f766e; /* Texto verde oscuro */
     border: 1px solid #6ee7b7; /* Borde ondulado en verde */
-    border-radius: 999px; /* Bordes redondeados */
+    border-radius: 999px; /* Bordes redondeadas */
     padding: 8px 12px; /* Espacio interno */
     font-weight: 700; /* Texto grueso */
     font-size: 12px; /* Tamaño pequeño */
@@ -739,68 +739,144 @@ a.btn-primary:hover { color: #ffffff; background-color: #10b981; }
 
 /* --- Login: se conserva el diseño de loginstyle.css, limitado a esta página con .pagina-login --- */
 .pagina-login {
-    background-color: #f0fdf4;
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 35%, #a7f3d0 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url('./assets/img/fondologin.jpg');
-    background-size: cover;
+    padding: 32px 16px;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.pagina-login form {
+    width: min(100%, 420px);
+}
+
 .pagina-login .form-login {
-    background-color: rgb(52, 57, 73);
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.822);
-    width: 320px;
-    max-width: 92vw;
+    background: rgba(255, 255, 255, 0.96);
+    padding: 32px 28px 24px;
+    border-radius: 24px;
+    border: 1px solid rgba(15, 118, 110, 0.15);
+    box-shadow: 0 18px 40px rgba(15, 118, 110, 0.18);
+    width: 100%;
+    max-width: 420px;
     text-align: center;
 }
-.pagina-login h1 { color: #369789; margin: 20px 0; }
-.pagina-login .form-login p { color: #ffffff; margin: 0 0 12px; }
+
+.pagina-login h1 {
+    color: #0f766e;
+    margin: 0 0 10px;
+    font-size: clamp(2rem, 3vw, 2.4rem);
+    font-weight: 700;
+}
+
+.pagina-login .form-login p {
+    color: #475569;
+    margin: 0 0 20px;
+    font-size: 0.98rem;
+}
+
+.pagina-login .form-login .form-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
 .pagina-login .form-login .form-control {
     width: 100%;
-    padding: 12px 15px;
-    background: none;
-    border: none;
+    padding: 12px 14px;
+    background: #f0fdf4;
+    border: 1.5px solid #a7f3d0;
+    border-radius: 12px;
     outline: none;
-    color: white;
-    font-size: 18px;
-    border-radius: 2px;
+    color: #0f172a;
+    font-size: 1rem;
+    transition: all 0.2s ease;
 }
-.pagina-login .form-login .form-control::placeholder { color: rgba(255, 255, 255, 0.6); }
+
+.pagina-login .form-login .form-control::placeholder {
+    color: #64748b;
+}
+
 .pagina-login .form-login .form-control:focus {
-    background: none;
-    color: white;
-    border-color: #00ffff;
-    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+    background: #ffffff;
+    color: #0f172a;
+    border-color: #0f766e;
+    box-shadow: 0 0 0 0.2rem rgba(15, 118, 110, 0.15);
 }
-.pagina-login .form-login .form-control.is-invalid { background-image: none; border: 1px solid #ff6b6b; }
-.pagina-login .invalid-feedback { color: #ff9b9b; text-align: left; }
-.pagina-login .error-login { color: #ff9b9b; margin: 8px 0; }
-.entrar-btn, .registrar-btn, .volver-btn {
-    display: inline-block;
-    background: linear-gradient(90deg, #00ffff, #00ff80);
+
+.pagina-login .form-login .form-control.is-invalid {
+    background-color: #ffffff;
+    border-color: #ef4444;
+    box-shadow: none;
+}
+
+.pagina-login .invalid-feedback {
+    display: block;
+    color: #dc2626;
+    text-align: left;
+    margin-top: 6px;
+    font-size: 0.82rem;
+}
+
+.pagina-login .error-login {
+    color: #b91c1c;
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin: 0 0 14px;
+    font-size: 0.9rem;
+}
+
+.pagina-login .form-login .entrar-btn,
+.pagina-login .form-login .registrar-btn,
+.pagina-login .form-login .volver-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     border: none;
-    padding: 12px 30px;
-    border-radius: 25px;
-    color: rgb(130, 130, 212);
-    font-size: 13.3333px;
-    font-weight: bold;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-size: 0.98rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: 0.4s;
+    transition: all 0.2s ease;
     margin-top: 10px;
     text-decoration: none;
     box-shadow: none;
 }
-.entrar-btn:hover, .registrar-btn:hover, .volver-btn:hover {
-    background: linear-gradient(90deg, #00ff80, #00ffff);
-    box-shadow: 0.5px 15px #5f9979;
-    color: rgb(130, 130, 212);
-    transform: none;
+
+.pagina-login .form-login .entrar-btn {
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
+    color: #ffffff;
+    box-shadow: 0 10px 18px rgba(15, 118, 110, 0.2);
 }
 
+.pagina-login .form-login .registrar-btn,
+.pagina-login .form-login .volver-btn {
+    background: #ecfdf5;
+    color: #0f766e;
+    border: 1px solid #99f6e4;
+}
+
+.pagina-login .form-login .entrar-btn:hover,
+.pagina-login .form-login .registrar-btn:hover,
+.pagina-login .form-login .volver-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(15, 118, 110, 0.18);
+}
+
+.pagina-login .form-login .entrar-btn:hover {
+    background: linear-gradient(135deg, #0b5f5a, #0ea5a4);
+    color: #ffffff;
+}
+
+.pagina-login .form-login .registrar-btn:hover,
+.pagina-login .form-login .volver-btn:hover {
+    background: #d1fae5;
+    color: #0f766e;
+}
 /* ==========================================================================
    PARTE 3: RESPONSIVE (celulares y tablets)
    ========================================================================== */
