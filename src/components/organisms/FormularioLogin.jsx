@@ -29,7 +29,7 @@ function FormularioLogin({ onIngresar }) {
   return (
     <Form name="formulario-login" id="login" onSubmit={manejarEnvio} noValidate>
       <div className="form-login">
-        <h1>Inicio Sesion</h1>
+        <h1>Inicio de sesión</h1>
         <p>Ingrese sus datos:</p>
 
         <Form.Group className="email-box" controlId="email">
