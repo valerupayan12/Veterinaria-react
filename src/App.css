@@ -740,6 +740,9 @@ a.btn-primary:hover { color: #ffffff; background-color: #10b981; }
 /* --- Login --- */
 .pagina-login {
     background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 35%, #a7f3d0 100%);
+    background-image: url('./assets/img/fondologin.jpg');
+    background-position: center;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -760,6 +763,7 @@ a.btn-primary:hover { color: #ffffff; background-color: #10b981; }
     box-shadow: 0 8px 24px rgba(15, 118, 110, 0.25);
     width: 320px;
     max-width: 92vw;
+    margin: 0 auto;
     text-align: center;
 }
 .pagina-login .form-login h1 { color: #0f766e; margin: 0 0 20px; }
