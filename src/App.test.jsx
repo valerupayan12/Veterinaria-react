@@ -67,7 +67,7 @@ describe('App (integración de estado y rutas)', () => {
   it('sin sesión, /admin redirige al login', () => {
     dibujar('/admin')
 
-    expect(screen.getByText('Inicio Sesion')).toBeInTheDocument()
+    expect(screen.getByText('Inicio de Sesion')).toBeInTheDocument()
   })
 
   // PU-042
