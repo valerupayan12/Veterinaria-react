@@ -376,7 +376,7 @@ input[type="checkbox"], input[type="radio"] {
     background: #ecfdf5; /* Fondo claro */
     color: #0f766e; /* Texto verde oscuro */
     border: 1px solid #6ee7b7; /* Borde ondulado en verde */
-    border-radius: 999px; /* Bordes redondeados */
+    border-radius: 999px; /* Bordes redondeadas */
     padding: 8px 12px; /* Espacio interno */
     font-weight: 700; /* Texto grueso */
     font-size: 12px; /* Tamaño pequeño */
@@ -739,15 +739,19 @@ a.btn-primary:hover { color: #ffffff; background-color: #10b981; }
 
 /* --- Login --- */
 .pagina-login {
-    background-color: #f0fdf4;
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 35%, #a7f3d0 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url('./assets/img/fondologin.jpg');
-    background-size: cover;
+    padding: 32px 16px;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.pagina-login form {
+    width: min(100%, 420px);
+}
+
 .pagina-login .form-login {
     background-color: #ffffff;
     padding: 40px;
@@ -811,6 +815,11 @@ a.btn-primary:hover { color: #ffffff; background-color: #10b981; }
     outline-offset: 2px;
 }
 
+.pagina-login .form-login .registrar-btn:hover,
+.pagina-login .form-login .volver-btn:hover {
+    background: #d1fae5;
+    color: #0f766e;
+}
 /* ==========================================================================
    PARTE 3: RESPONSIVE (celulares y tablets)
    ========================================================================== */
