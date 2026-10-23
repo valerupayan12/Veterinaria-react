@@ -21,7 +21,7 @@ Los clientes se crean desde la página **Registro** y quedan guardados en `local
 Están en `src/views/` (igual que el proyecto base): `Home` (ruta `/`, página Index), `Productos`, `Producto` (`/producto/:id`), `Login`, `Registro`, `Admin` (solo administrador), `Carrito`, `Perfil` (requiere sesión) y `Error404`.
 Extras migradas del sitio original: `Servicio` (`/servicio/:id`) y `AgendarCita` (`/agendar-cita`).
 
-## Estructura (misma base del proyecto del profesor + Atomic Design)
+## Estructura (misma base del proyecto + Atomic Design)
 ```
 src/
   App.jsx, App.css, main.jsx, setupTests.js
