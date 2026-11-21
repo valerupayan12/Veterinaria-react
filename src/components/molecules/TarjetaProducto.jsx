@@ -5,7 +5,7 @@ import Precio from '../atoms/Precio'
 
 // Molécula: tarjeta de un producto del catálogo.
 // Recibe el producto y funciones (onAgregar, onFavorito); no guarda estado propio.
-function TarjetaProducto({ producto, esFavorito, onFavorito, onAgregar }) {
+function TarjetaProducto({ producto, esFavorito, onFavorito, onAgregar, esAdmin = false, onEditar = null, onEliminar = null }) {
   const sinStock = producto.stock < 1
 
   return (
@@ -24,6 +24,26 @@ function TarjetaProducto({ producto, esFavorito, onFavorito, onAgregar }) {
           {sinStock ? 'Sin stock' : 'Agregar al carrito'}
         </Boton>
       </div>
+
+      {esAdmin && (
+        <div className="acciones-admin-tarjeta">
+          <Boton
+            variante="secundario"
+            onClick={() => onEditar?.(producto)}
+            aria-label={`Editar ${producto.nombre}`}
+          >
+            Editar
+          </Boton>
+          <Boton
+            variante="peligro"
+            onClick={() => onEliminar?.(producto)}
+            aria-label={`Eliminar ${producto.nombre}`}
+          >
+            Eliminar
+          </Boton>
+        </div>
+      )}
+
       <BotonFavorito activo={esFavorito} onAlternar={() => onFavorito(producto.id)} />
     </article>
   )

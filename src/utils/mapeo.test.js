@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { productoDesdeApi, productoParaApi, usuarioDesdeApi } from './mapeo'
+import { productoDesdeApi, productoParaApi, usuarioDesdeApi, mensajeDeError } from './mapeo'
 
 describe('mapeo entre el backend y el frontend', () => {
   it('convierte un producto del backend al catálogo del frontend', () => {
@@ -56,6 +56,43 @@ describe('mapeo entre el backend y el frontend', () => {
       stock: 20,
       requiereReceta: true,
     })
+  })
+
+  it('no guarda en la BD las rutas del bundle de Vite y conserva las URLs estables', () => {
+    const conBundle = productoParaApi({
+      nombre: 'Producto',
+      precio: 1000,
+      descripcion: 'Descripción válida',
+      categoria: 'alimento',
+      mascotas: ['perro'],
+      stock: 2,
+      imagen: '/src/assets/img/producto.jpg',
+    })
+    const conUrl = productoParaApi({
+      nombre: 'Producto',
+      precio: 1000,
+      descripcion: 'Descripción válida',
+      categoria: 'alimento',
+      mascotas: ['perro'],
+      stock: 2,
+      imagen: 'https://cdn.ejemplo.cl/producto.jpg',
+    })
+
+    expect(conBundle.imagen).toBeNull()
+    expect(conUrl.imagen).toBe('https://cdn.ejemplo.cl/producto.jpg')
+  })
+
+  it('usa la imagen local cuando el backend devuelve una imagen vacía', () => {
+    const producto = productoDesdeApi({ id: 1, nombre: 'Producto', imagen: '' }, { imagen: 'local.jpg' })
+
+    expect(producto.imagen).toBe('local.jpg')
+  })
+
+  it('traduce los errores de seguridad y de conexión', () => {
+    expect(mensajeDeError({ response: { status: 401 } })).toMatch(/sesión expiró/i)
+    expect(mensajeDeError({ response: { status: 403 } })).toMatch(/permisos de administrador/i)
+    expect(mensajeDeError({})).toMatch(/No se pudo conectar con el backend/i)
+    expect(mensajeDeError({ response: { status: 400, data: { message: 'Precio inválido' } } })).toBe('Precio inválido')
   })
 
   it('une el usuario del backend con los datos locales del perfil', () => {

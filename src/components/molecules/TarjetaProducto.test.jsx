@@ -58,4 +58,23 @@ describe('TarjetaProducto', () => {
 
     expect(boton).toBeDisabled()
   })
+
+  it('sin sesión de administrador no muestra los botones del CRUD', () => {
+    dibujar()
+
+    expect(screen.queryByRole('button', { name: /Editar/ })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /Eliminar/ })).not.toBeInTheDocument()
+  })
+
+  it('con sesión de administrador llama a onEditar y onEliminar con el producto', () => {
+    const onEditar = vi.fn()
+    const onEliminar = vi.fn()
+    dibujar({ esAdmin: true, onEditar, onEliminar })
+
+    fireEvent.click(screen.getByRole('button', { name: 'Editar Alimento Especializado para Conejos' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Eliminar Alimento Especializado para Conejos' }))
+
+    expect(onEditar).toHaveBeenCalledWith(productoMock)
+    expect(onEliminar).toHaveBeenCalledWith(productoMock)
+  })
 })

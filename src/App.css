@@ -909,3 +909,180 @@ a.btn-primary:hover { color: #ffffff; background-color: #10b981; }
 .app[data-tema="oscuro"] .boton-favorito.activo { background-color: #f33587; color: #ffffff; }
 .app[data-tema="oscuro"] .resumen-total { border-top-color: #34d399; }
 .app[data-tema="oscuro"] .form-check-label { color: #e2f5ef; }
+
+/* ==========================================================================
+   PARTE 5: ADMINISTRACIÓN DEL CATÁLOGO Y CONEXIÓN CON EL BACKEND
+   Usa la misma paleta verde del sitio (#10b981, #ecfdf5, #0f766e, #6ee7b7)
+   y el rojo suave que ya se usa para los mensajes de error.
+   ========================================================================== */
+
+/* --- Botón destructivo (eliminar) --- */
+.btn-peligro {
+    border: 1px solid #fca5a5;
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-weight: 700;
+    cursor: pointer;
+    background: #fef2f2;
+    color: #b42318;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.btn-peligro:hover { background: #fee2e2; border-color: #f87171; color: #991b1b; transform: translateY(-2px); }
+.btn-peligro:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+.btn-peligro:focus-visible,
+.barra-admin button:focus-visible,
+.acciones-admin-tarjeta button:focus-visible { outline: 3px solid #6ee7b7; outline-offset: 2px; }
+
+/* --- Barra de administración --- */
+.barra-admin {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 16px 18px;
+    border: 1px solid #a7f3d0;
+    border-radius: 16px;
+    background: #f0fdf4;
+    margin-bottom: 14px;
+}
+.barra-admin-info { display: flex; flex-direction: column; gap: 8px; min-width: 240px; flex: 1; }
+.etiqueta-admin {
+    align-self: flex-start;
+    background: #d1fae5;
+    color: #0f766e;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+.barra-admin-info p { margin: 0; color: #475569; font-size: 14px; max-width: 60ch; text-wrap: pretty; }
+.barra-admin-acciones { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.barra-admin-acciones button { min-height: 40px; }
+
+/* --- Indicador de conexión con el backend --- */
+.estado-backend {
+    display: inline-flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid #a7f3d0;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 13px;
+}
+.estado-punto { width: 9px; height: 9px; border-radius: 50%; background: #94a3b8; flex: none; }
+.estado-texto { display: flex; flex-direction: column; line-height: 1.25; }
+.estado-texto small { color: #64748b; font-size: 11px; }
+.estado-conectado { border-color: #6ee7b7; }
+.estado-conectado .estado-punto { background: #10b981; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18); }
+.estado-desconectado { border-color: #fca5a5; background: #fff7f7; }
+.estado-desconectado .estado-punto { background: #dc3545; box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15); }
+.estado-verificando .estado-punto { background: #0f766e; animation: pulso-conexion 1.4s ease-in-out infinite; }
+.estado-compacto { align-self: center; padding: 6px; border-radius: 50%; background: transparent; border: none; }
+.estado-compacto .estado-punto { width: 10px; height: 10px; }
+.btn-reintentar { padding: 4px 10px !important; font-size: 12px !important; border-radius: 999px !important; min-height: 32px !important; }
+@keyframes pulso-conexion {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.8); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .estado-verificando .estado-punto { animation: none; }
+}
+
+/* --- Avisos de resultado del CRUD --- */
+.aviso-crud {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid #a7f3d0;
+    background: #ecfdf5;
+    color: #065f46;
+    font-size: 14px;
+}
+.aviso-crud.aviso-error { border-color: #fca5a5; background: #fef2f2; color: #991b1b; }
+.aviso-cerrar {
+    border: none;
+    background: transparent;
+    color: inherit;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 4px;
+    border-radius: 6px;
+}
+.aviso-cerrar:hover { background: rgba(0, 0, 0, 0.06); }
+.aviso-cerrar:focus-visible { outline: 3px solid #6ee7b7; outline-offset: 2px; }
+
+/* --- Acciones de administrador dentro de cada tarjeta --- */
+.acciones-admin-tarjeta {
+    display: flex;
+    gap: 6px;
+    width: 100%;
+    margin: 0 0 8px;
+    padding-top: 8px;
+    border-top: 1px dashed #a7f3d0;
+}
+.acciones-admin-tarjeta button { flex: 1 1 0; min-height: 40px; padding: 8px 10px; font-size: 13px; border-radius: 12px; }
+
+/* --- Botones del formulario en modal --- */
+.acciones-formulario { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.acciones-formulario button { min-height: 40px; }
+
+/* --- Modales con la paleta del sitio --- */
+.modal-veterinaria { border-radius: 18px; border: 1px solid #a7f3d0; overflow: hidden; }
+.modal-veterinaria .modal-header { background: #ecfdf5; border-bottom: 1px solid #a7f3d0; }
+.modal-veterinaria .modal-title { color: #0f766e; font-size: 20px; font-weight: 700; }
+.modal-veterinaria .modal-body { padding: 20px; }
+.modal-veterinaria .modal-footer { border-top: 1px solid #a7f3d0; background: #f8fffc; }
+.modal-veterinaria .modal-footer button { min-height: 40px; }
+.modal-veterinaria .btn-close:focus { box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25); }
+
+/* --- Modales en tema oscuro (el portal de Bootstrap queda fuera de .app) --- */
+.modal-veterinaria.modal-oscuro { background: #12302b; border-color: #0f766e; color: #e2f5ef; }
+.modal-veterinaria.modal-oscuro .modal-header { background: #0f2623; border-bottom-color: #0f766e; }
+.modal-veterinaria.modal-oscuro .modal-title { color: #5eead4; }
+.modal-veterinaria.modal-oscuro .modal-body { color: #e2f5ef; }
+.modal-veterinaria.modal-oscuro .modal-footer { background: #0f2623; border-top-color: #0f766e; }
+.modal-veterinaria.modal-oscuro .form-control,
+.modal-veterinaria.modal-oscuro .form-select { background-color: #0b1f1c; color: #e2f5ef; border-color: #0f766e; }
+.modal-veterinaria.modal-oscuro .form-control::placeholder { color: #7aa89d; }
+.modal-veterinaria.modal-oscuro .form-check-label,
+.modal-veterinaria.modal-oscuro .nota-imagen { color: #cfe9e1; }
+.modal-veterinaria.modal-oscuro .btn-close { filter: invert(1) grayscale(1) brightness(1.8); }
+.modal-veterinaria.modal-oscuro .btn-secondary { background: #134e4a; color: #ccfbf1; border-color: #0f766e; }
+.modal-veterinaria.modal-oscuro .btn-peligro { background: #3b1d1d; color: #fecaca; border-color: #7f1d1d; }
+
+/* --- Tema oscuro para los elementos nuevos --- */
+.app[data-tema="oscuro"] .barra-admin { background: #0f2623; border-color: #0f766e; }
+.app[data-tema="oscuro"] .barra-admin-info p { color: #cfe9e1; }
+.app[data-tema="oscuro"] .etiqueta-admin { background: #134e4a; color: #5eead4; }
+.app[data-tema="oscuro"] .estado-backend { background: #12302b; border-color: #0f766e; color: #e2f5ef; }
+.app[data-tema="oscuro"] .estado-texto small { color: #9ecfc3; }
+.app[data-tema="oscuro"] .estado-desconectado { background: #2a1515; border-color: #7f1d1d; }
+.app[data-tema="oscuro"] .aviso-crud { background: #0f2623; border-color: #0f766e; color: #5eead4; }
+.app[data-tema="oscuro"] .aviso-crud.aviso-error { background: #2a1515; border-color: #7f1d1d; color: #fecaca; }
+.app[data-tema="oscuro"] .acciones-admin-tarjeta { border-top-color: #0f766e; }
+.app[data-tema="oscuro"] .btn-peligro { background: #3b1d1d; color: #fecaca; border-color: #7f1d1d; }
+.app[data-tema="oscuro"] .btn-peligro:hover { background: #4a2020; border-color: #b91c1c; color: #fee2e2; }
+.app[data-tema="oscuro"] .topbar .estado-backend { background: transparent; border: none; padding: 6px; }
+.app[data-tema="oscuro"] .topbar .estado-texto small { color: #cfe9e1; }
+
+/* --- La barra superior alinea el indicador junto al botón de tema --- */
+.topbar-right { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+
+/* --- Responsive de la administración --- */
+@media (max-width: 768px) {
+    .barra-admin { flex-direction: column; align-items: stretch; }
+    .barra-admin-acciones { flex-direction: column; }
+    .barra-admin-acciones button { width: 100%; }
+    .estado-backend:not(.estado-compacto) { flex-wrap: wrap; border-radius: 14px; }
+    .acciones-admin-tarjeta { flex-direction: column; }
+}

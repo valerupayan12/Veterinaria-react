@@ -34,7 +34,7 @@ function datosDeProducto(producto) {
   }
 }
 
-function FormularioProducto({ onCrear, valorInicial = null }) {
+function FormularioProducto({ onCrear, valorInicial = null, onCancelar = null, onExito = null }) {
   const editando = Boolean(valorInicial)
   const [datos, setDatos] = useState(() => datosDeProducto(valorInicial))
   const [errores, setErrores] = useState({})
@@ -74,6 +74,7 @@ function FormularioProducto({ onCrear, valorInicial = null }) {
       setCreado(datos.nombre.trim())
       setAviso(resultado?.mensaje || '')
       if (!editando) setDatos(DATOS_VACIOS)
+      onExito?.(resultado)
     } catch {
       setErrorGeneral('No se pudo guardar el producto. Intenta nuevamente.')
     } finally {
@@ -132,9 +133,16 @@ function FormularioProducto({ onCrear, valorInicial = null }) {
         </div>
       )}
 
-      <Boton tipo="submit" disabled={enviando}>
-        {enviando ? 'Guardando...' : editando ? 'Guardar cambios' : 'Crear producto'}
-      </Boton>
+      <div className="acciones-formulario">
+        <Boton tipo="submit" disabled={enviando}>
+          {enviando ? 'Guardando...' : editando ? 'Guardar cambios' : 'Crear producto'}
+        </Boton>
+        {onCancelar && (
+          <Boton variante="secundario" onClick={onCancelar} disabled={enviando}>
+            Cancelar
+          </Boton>
+        )}
+      </div>
     </Form>
   )
 }

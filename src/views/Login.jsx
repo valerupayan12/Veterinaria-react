@@ -28,29 +28,20 @@ function Login({ onLogin }) {
   }
 
   async function ingresarAdmin(password) {
-    const datosAdmin = {
-      nombre: ADMIN_USER.nombre,
-      email: ADMIN_USER.email,
-      password,
-      telefono: ADMIN_USER.telefono,
-    }
-
     try {
       const { data } = await AuthService.login({ email: ADMIN_USER.email, password })
       guardarToken(data.token)
-    } catch {
-      // Si el administrador aún no existe en la base de datos, se registra
-      // y se vuelve a pedir el token. Sin backend, el panel sigue en modo local.
-      try {
-        const { data } = await AuthService.register(datosAdmin)
-        guardarToken(data.token)
-      } catch {
-        // Modo local: el panel funciona con el estado en memoria.
-      }
-    }
+      iniciar(ADMIN_USER)
+      return true
+    } catch (error) {
+      // Credenciales rechazadas por el backend: no se permite el acceso local.
+      if (error?.response) return false
 
-    iniciar(ADMIN_USER)
-    return true
+      // Backend apagado: se permite entrar al panel en modo local, pero sin token.
+      // Las acciones del CRUD mostrarán un error claro porque no llegan a la BD.
+      iniciar(ADMIN_USER)
+      return true
+    }
   }
 
   const ingresar = async ({ email, password }) => {

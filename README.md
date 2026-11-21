@@ -43,10 +43,30 @@ src/
 
 ## Funcionalidades con estado (useState)
 1. Tema claro/oscuro · 2. Carrito de compras · 3. Favoritos · 4. Filtrado dinámico (texto, categoría, mascota)
-5. CRUD en memoria (crear y eliminar productos en el Panel) · 6. Menú hamburguesa responsivo · 7. Formularios con validación
+5. CRUD de productos conectado al backend (crear, editar y eliminar desde `/productos` y `/admin`) · 6. Menú hamburguesa responsivo · 7. Formularios con validación
+8. Indicador visible de conexión con el backend (estado, URL y última revisión)
+
+## CRUD de productos con el backend
+El backend Spring Boot vive en `../VeterinariaSanMarcos-Backend` y expone `/api/productos`.
+El catálogo se lee desde la base de datos al cargar la página. Si el backend no responde,
+se mantiene el catálogo local de respaldo, pero las acciones de administrador se bloquean
+con un mensaje claro para no simular cambios que no llegaron a la BD.
+
+1. Inicia MySQL (XAMPP) y el backend en `http://localhost:8081`.
+2. Inicia el frontend con `npm run dev`.
+3. Entra con `admin@duocuc.cl` / `Admin.123`.
+4. En **Productos** aparece la barra **Modo administrador** con:
+   - **Nuevo producto**: abre el formulario en un modal.
+   - **Editar** y **Eliminar** en cada tarjeta.
+   - **Recargar desde BD**: vuelve a leer el catálogo desde MySQL.
+   - Estado de conexión con la URL del backend y la última revisión.
+5. Cada operación se envía por la API REST y se refleja en la tabla `producto` de MySQL.
+
+> Si usas otro puerto o host, copia `.env.example` a `.env` y ajusta `VITE_API_URL`.
+> El backend permite CORS desde `http://localhost:5173`.
 
 ## Elementos responsivos
 Menú hamburguesa, galería en cuadrícula, detalle de producto en una columna, formularios con Row/Col, tabla del panel con scroll, carrito en columna.
 
 ## Documentación de pruebas
-Ver `plan_de_pruebas.md` (42 pruebas unitarias con patrón AAA).
+Ver `plan_de_pruebas.md` (54 pruebas unitarias con patrón AAA).
