@@ -40,6 +40,7 @@ function FormularioRegistro({ onRegistrar }) {
   const [errores, setErrores] = useState({})
   const [errorGeneral, setErrorGeneral] = useState('')
   const [exito, setExito] = useState(false)
+  const [enviando, setEnviando] = useState(false)
 
   const manejarCambio = (e) => {
     setDatos({ ...datos, [e.target.name]: e.target.value })
@@ -59,21 +60,30 @@ function FormularioRegistro({ onRegistrar }) {
     setErrorGeneral('')
   }
 
-  const manejarEnvio = (e) => {
+  const manejarEnvio = async (e) => {
     e.preventDefault()
+    if (enviando) return
+
     setExito(false)
     const nuevosErrores = validarRegistro(datos)
     setErrores(nuevosErrores)
     if (Object.keys(nuevosErrores).length > 0) return
 
-    const mensaje = onRegistrar(datos)
-    if (mensaje) {
-      setErrorGeneral(mensaje)
-      return
+    setEnviando(true)
+    try {
+      const mensaje = await onRegistrar(datos)
+      if (mensaje) {
+        setErrorGeneral(mensaje)
+        return
+      }
+      setErrorGeneral('')
+      setExito(true)
+      setDatos(DATOS_VACIOS)
+    } catch {
+      setErrorGeneral('No se pudo completar el registro. Intenta nuevamente.')
+    } finally {
+      setEnviando(false)
     }
-    setErrorGeneral('')
-    setExito(true)
-    setDatos(DATOS_VACIOS)
   }
 
   return (
@@ -152,8 +162,10 @@ function FormularioRegistro({ onRegistrar }) {
         </div>
       )}
 
-      <Boton tipo="submit">Registrar Mascota</Boton>{' '}
-      <Boton tipo="button" className="boton-limpiar" onClick={limpiar}>
+      <Boton tipo="submit" disabled={enviando}>
+        {enviando ? 'Registrando...' : 'Registrar Mascota'}
+      </Boton>{' '}
+      <Boton tipo="button" className="boton-limpiar" onClick={limpiar} disabled={enviando}>
         Limpiar Formulario
       </Boton>
     </Form>

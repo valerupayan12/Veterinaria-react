@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
 import FormularioLogin from './FormularioLogin'
@@ -25,7 +25,7 @@ describe('FormularioLogin', () => {
   })
 
   // PU-030
-  it('con credenciales incorrectas muestra el mensaje de error', () => {
+  it('con credenciales incorrectas muestra el mensaje de error', async () => {
     const onIngresar = vi.fn().mockReturnValue(false)
     dibujar(onIngresar)
 
@@ -34,6 +34,8 @@ describe('FormularioLogin', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Entrar' }))
 
     expect(onIngresar).toHaveBeenCalledWith({ email: 'otro@gmail.com', password: 'mala' })
-    expect(screen.getByRole('alert')).toHaveTextContent('Correo o contraseña incorrectos')
+    await waitFor(() => {
+      expect(screen.getByRole('alert')).toHaveTextContent('Correo o contraseña incorrectos')
+    })
   })
 })

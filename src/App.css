@@ -724,7 +724,8 @@ a.btn-primary:hover { color: #ffffff; background-color: #10b981; }
 .tabla-admin th { background: #ecfdf5; color: #0f766e; text-align: left; }
 .tabla-admin th, .tabla-admin td { padding: 8px 10px; border-bottom: 1px solid #a7f3d0; vertical-align: middle; }
 .tabla-admin img { width: 52px; height: 52px; object-fit: contain; background: #ecfdf5; border-radius: 6px; }
-.tabla-admin button { padding: 6px 14px; font-size: 13px; }
+.tabla-admin button, .tabla-admin .btn-secondary { padding: 6px 14px; font-size: 13px; }
+.tabla-admin .btn-secondary { display: inline-block; text-decoration: none; }
 .nota-imagen { font-size: 14px; color: #475569; }
 
 /* --- Perfil --- */

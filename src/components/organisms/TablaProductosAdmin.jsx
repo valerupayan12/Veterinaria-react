@@ -1,7 +1,8 @@
 import Boton from '../atoms/Boton'
+import EnlaceBoton from '../atoms/EnlaceBoton'
 import Precio from '../atoms/Precio'
 
-// Organismo: tabla de productos del Panel de Control con botón para eliminar.
+// Organismo: tabla de productos del Panel de Control con acciones para editar y eliminar.
 // El contenedor con scroll horizontal la hace usable en celulares.
 function TablaProductosAdmin({ productos, onEliminar }) {
   return (
@@ -26,6 +27,9 @@ function TablaProductosAdmin({ productos, onEliminar }) {
               <td><Precio valor={p.precio} /></td>
               <td>{p.stock}</td>
               <td>
+                <EnlaceBoton variante="secundario" to={`/admin/productos/editar/${p.id}`} aria-label={`Editar ${p.nombre}`}>
+                  Editar
+                </EnlaceBoton>{' '}
                 <Boton variante="secundario" onClick={() => onEliminar(p.id)} aria-label={`Eliminar ${p.nombre}`}>
                   Eliminar
                 </Boton>
