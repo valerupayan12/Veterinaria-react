@@ -6,11 +6,11 @@ import { construirMenu } from '../../data/menu'
 // Plantilla: esqueleto común de todas las páginas (Topbar + Header + contenido + Footer).
 // Las páginas le entregan el contenido como "children" y los datos de sesión/tema/carrito en "layout".
 function PlantillaPagina({ layout, topbar, titulo, subtitulo, imagen, altImagen, imagenGrande, children }) {
-  const { usuario, carritoCantidad, tema, onAlternarTema, onCerrarSesion } = layout
+  const { usuario, carritoCantidad, tema, conexion, onAlternarTema, onCerrarSesion } = layout
 
   return (
     <>
-      <Topbar mensaje={topbar} usuario={usuario} tema={tema} onAlternarTema={onAlternarTema} />
+      <Topbar mensaje={topbar} usuario={usuario} tema={tema} conexion={conexion} onAlternarTema={onAlternarTema} />
       <Header
         titulo={titulo}
         subtitulo={subtitulo}

@@ -3,6 +3,13 @@
 // mientras que el frontend trabaja con { id, nombre, precio, ... }.
 import { IMAGEN_POR_DEFECTO } from '../data/productos'
 
+// Texto no vacío o null. Evita que una cadena vacía del backend pise la imagen local.
+function textoONulo(valor) {
+  if (typeof valor !== 'string') return null
+  const texto = valor.trim()
+  return texto === '' ? null : texto
+}
+
 // Convierte un producto del backend al formato del catálogo.
 // "datosLocales" permite conservar imagen, categoría y stock que el backend todavía no guarda.
 export function productoDesdeApi(producto, datosLocales = {}) {
@@ -14,7 +21,8 @@ export function productoDesdeApi(producto, datosLocales = {}) {
     categoria: producto.categoria ?? datosLocales.categoria ?? 'accesorios',
     mascotas: producto.mascotas ?? datosLocales.mascotas ?? [],
     stock: Number(producto.stock ?? datosLocales.stock ?? 0),
-    imagen: producto.imagen ?? datosLocales.imagen ?? IMAGEN_POR_DEFECTO,
+    imagen:
+      textoONulo(producto.imagen) ?? textoONulo(datosLocales.imagen) ?? IMAGEN_POR_DEFECTO,
     requiereReceta: Boolean(producto.requiereReceta ?? datosLocales.requiereReceta ?? false),
     destacado: producto.destacado ?? datosLocales.destacado,
     detalle: producto.detalle ?? datosLocales.detalle,
@@ -23,9 +31,21 @@ export function productoDesdeApi(producto, datosLocales = {}) {
   }
 }
 
+// Las imágenes del catálogo son archivos del bundle de Vite (/src/assets/... en
+// desarrollo o /assets/... en producción). Esas rutas cambian en cada build, así
+// que no se guardan en la base de datos: el frontend las resuelve por id.
+// Solo se persisten URLs absolutas o rutas estables de /public.
+function imagenParaApi(imagen) {
+  const texto = textoONulo(imagen)
+  if (!texto) return null
+  if (/^(https?:)?\/\//i.test(texto)) return texto
+  if (texto.startsWith('/img/')) return texto
+  return null
+}
+
 // Datos que entiende la entidad Producto.
-// La entidad guarda todos los campos del catálogo; "imagen" queda como la ruta
-// del bundle que use el frontend (o null para usar la imagen por defecto).
+// La entidad guarda todos los campos del catálogo; "imagen" queda null para
+// que el frontend use la imagen local o la imagen genérica por defecto.
 export function productoParaApi(datos) {
   return {
     nombre: datos.nombre.trim(),
@@ -35,7 +55,7 @@ export function productoParaApi(datos) {
     mascotas: datos.mascotas ?? [],
     stock: Number(datos.stock),
     requiereReceta: Boolean(datos.requiereReceta),
-    imagen: datos.imagen,
+    imagen: imagenParaApi(datos.imagen),
   }
 }
 
@@ -61,6 +81,17 @@ export function usuarioDesdeApi(usuario, datosLocales = {}) {
 }
 
 // Mensaje legible a partir de un error de axios.
-export function mensajeDeError(error, porDefecto) {
-  return error?.response?.data?.message || error?.response?.data?.error || porDefecto
+// Prioriza el mensaje del backend y traduce los casos más comunes de seguridad.
+export function mensajeDeError(error, porDefecto = 'Ocurrió un error inesperado.') {
+  const datos = error?.response?.data
+  const mensajeBackend = datos?.message || datos?.error || datos?.detail
+  if (mensajeBackend) return mensajeBackend
+
+  const estado = error?.response?.status
+  if (estado === 401) return 'Tu sesión expiró. Vuelve a iniciar sesión para continuar.'
+  if (estado === 403) return 'No tienes permisos de administrador para realizar esta acción.'
+  if (!error?.response) {
+    return 'No se pudo conectar con el backend. Verifica que esté encendido y que la URL sea correcta.'
+  }
+  return porDefecto
 }

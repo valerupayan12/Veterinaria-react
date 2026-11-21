@@ -78,4 +78,21 @@ describe('App (integración de estado y rutas)', () => {
 
     expect(screen.getByText('Registrar nuevo producto')).toBeInTheDocument()
   })
+
+  it('sin sesión de administrador, /productos no muestra las acciones del CRUD', () => {
+    dibujar('/productos')
+
+    expect(screen.queryByRole('button', { name: 'Crear producto' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /Editar / })).not.toBeInTheDocument()
+  })
+
+  it('con sesión de administrador, /productos muestra crear, editar y eliminar', () => {
+    localStorage.setItem('sesion', JSON.stringify({ nombre: 'Administrador San Marcos', email: 'admin@duocuc.cl', rol: 'admin' }))
+
+    dibujar('/productos')
+
+    expect(screen.getByRole('button', { name: 'Crear producto' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Editar Alimento Premium Perro Adulto 15kg' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Eliminar Alimento Premium Perro Adulto 15kg' })).toBeInTheDocument()
+  })
 })
