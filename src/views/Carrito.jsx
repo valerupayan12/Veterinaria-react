@@ -8,6 +8,7 @@ import EnlaceBoton from '../components/atoms/EnlaceBoton'
 import { detalleCarrito, calcularSubtotal, calcularDespacho } from '../utils/carrito'
 import { formatearPrecio } from '../utils/formato'
 import { SITIO } from '../data/sitio'
+import VentaService from '../services/VentaService'
 
 // Carrito de compras / resumen de pago (checkout).
 function Carrito({ layout, carrito, productos, onCambiarCantidad, onQuitar, onVaciar }) {
@@ -20,8 +21,19 @@ function Carrito({ layout, carrito, productos, onCambiarCantidad, onQuitar, onVa
   const total = subtotal + despacho
   const exigirReceta = items.some((item) => item.requiereReceta)
 
-  const confirmar = (datos) => {
-    setPedido({ numero: `VSM-${Date.now().toString().slice(-6)}`, total, entrega: datos.entrega })
+  const confirmar = async (datos) => {
+    const totalPedido = total
+    let numero = `VSM-${Date.now().toString().slice(-6)}`
+    let aviso = ''
+
+    try {
+      const { data } = await VentaService.createVenta({ total: totalPedido })
+      if (data?.id) numero = `VSM-${String(data.id).padStart(6, '0')}`
+    } catch {
+      aviso = 'No se pudo registrar la venta en el backend; el pedido quedó solo en pantalla.'
+    }
+
+    setPedido({ numero, total: totalPedido, entrega: datos.entrega, aviso })
     onVaciar()
   }
 
@@ -39,6 +51,7 @@ function Carrito({ layout, carrito, productos, onCambiarCantidad, onQuitar, onVa
           <strong>¡Compra realizada!</strong> Tu pedido {pedido.numero} por {formatearPrecio(pedido.total)} fue
           registrado ({pedido.entrega === 'retiro' ? 'retiro en la veterinaria' : 'despacho a domicilio'}).{' '}
           <EnlaceBoton to="/productos">Seguir comprando</EnlaceBoton>
+          {pedido.aviso && <span className="d-block mt-2">{pedido.aviso}</span>}
         </div>
       )}
 

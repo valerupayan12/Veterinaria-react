@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import App from './App.jsx'
 import './App.css'
+import './services/interceptor'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

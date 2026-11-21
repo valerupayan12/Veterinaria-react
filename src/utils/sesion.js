@@ -1,12 +1,16 @@
 // ============================================================
 // Manejo de sesión y usuarios con localStorage.
 //   "sesion"   -> usuario que inició sesión (sin contraseña)
-//   "usuarios" -> usuarios registrados desde la página Registro
+//   "usuarios" -> usuarios registrados desde la página Registro (modo local histórico)
+//   "token"    -> JWT devuelto por /auth/login (se envía en cada petición)
+//   "perfiles" -> datos extra del perfil que el backend todavía no guarda
 // ============================================================
 import { ADMIN_USER } from '../data/credenciales'
 
 const CLAVE_SESION = 'sesion'
 const CLAVE_USUARIOS = 'usuarios'
+const CLAVE_TOKEN = 'token'
+const CLAVE_PERFILES = 'perfiles'
 
 export function leerSesion() {
   try {
@@ -25,8 +29,46 @@ export function guardarSesion(usuario) {
 
 export function cerrarSesion() {
   localStorage.removeItem(CLAVE_SESION)
+  localStorage.removeItem(CLAVE_TOKEN)
 }
 
+// ----- JWT -----
+export function guardarToken(token) {
+  localStorage.setItem(CLAVE_TOKEN, token)
+  return token
+}
+
+export function leerToken() {
+  return localStorage.getItem(CLAVE_TOKEN)
+}
+
+export function borrarToken() {
+  localStorage.removeItem(CLAVE_TOKEN)
+}
+
+// ----- Perfil local (campos que el backend aún no modela) -----
+function leerPerfiles() {
+  try {
+    return JSON.parse(localStorage.getItem(CLAVE_PERFILES)) || []
+  } catch {
+    return []
+  }
+}
+
+export function guardarPerfilLocal(datos) {
+  const email = datos.email.trim().toLowerCase()
+  const { password, ...sinPassword } = datos // eslint-disable-line no-unused-vars
+  const perfil = { ...sinPassword, email }
+  const perfiles = leerPerfiles().filter((p) => p.email !== email)
+  localStorage.setItem(CLAVE_PERFILES, JSON.stringify([...perfiles, perfil]))
+  return perfil
+}
+
+export function leerPerfilLocal(email) {
+  return leerPerfiles().find((p) => p.email === email.trim().toLowerCase()) || null
+}
+
+// ----- Registro local histórico (se conserva para las pruebas unitarias) -----
 export function leerUsuarios() {
   try {
     return JSON.parse(localStorage.getItem(CLAVE_USUARIOS)) || []
@@ -45,8 +87,8 @@ export function registrarUsuario(datos) {
   return true
 }
 
-// Valida credenciales: primero el admin estático y luego los usuarios registrados.
-// Devuelve el usuario (con su rol) o null si las credenciales no coinciden.
+// Valida credenciales locales: primero el admin estático y luego los usuarios registrados.
+// El inicio de sesión real ahora lo hace AuthService contra /auth/login.
 export function autenticar(email, password) {
   const correo = email.trim().toLowerCase()
   const clave = password.trim()

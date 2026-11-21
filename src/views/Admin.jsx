@@ -5,7 +5,7 @@ import FormularioProducto from '../components/organisms/FormularioProducto'
 import TablaProductosAdmin from '../components/organisms/TablaProductosAdmin'
 
 // Panel de Control (migrado desde admin.html). Ruta protegida: solo administrador.
-// Aquí se crean y eliminan productos "en memoria" usando el estado de App.
+// Aquí se crean, editan y eliminan productos usando el estado de App (backend + respaldo local).
 function Admin({ layout, productos, onCrearProducto, onEliminarProducto }) {
   return (
     <PlantillaPagina

@@ -17,12 +17,31 @@ const DATOS_VACIOS = {
   requiereReceta: false,
 }
 
-// Organismo: formulario del Panel de Control para crear un producto (solo en memoria).
-// "onCrear" recibe los datos validados; la imagen siempre es la genérica por defecto.
-function FormularioProducto({ onCrear }) {
-  const [datos, setDatos] = useState(DATOS_VACIOS)
+// Organismo: formulario del Panel de Control para crear o editar un producto.
+// "onCrear" recibe los datos validados y devuelve el resultado de guardarlos (backend o memoria).
+// Con "valorInicial" el mismo formulario se usa para editar. La imagen es la genérica por defecto.
+function datosDeProducto(producto) {
+  if (!producto) return DATOS_VACIOS
+  return {
+    ...DATOS_VACIOS,
+    nombre: producto.nombre ?? '',
+    descripcion: producto.descripcion ?? '',
+    precio: String(producto.precio ?? ''),
+    stock: String(producto.stock ?? ''),
+    categoria: producto.categoria ?? '',
+    mascotas: producto.mascotas ?? [],
+    requiereReceta: Boolean(producto.requiereReceta),
+  }
+}
+
+function FormularioProducto({ onCrear, valorInicial = null }) {
+  const editando = Boolean(valorInicial)
+  const [datos, setDatos] = useState(() => datosDeProducto(valorInicial))
   const [errores, setErrores] = useState({})
   const [creado, setCreado] = useState('')
+  const [aviso, setAviso] = useState('')
+  const [errorGeneral, setErrorGeneral] = useState('')
+  const [enviando, setEnviando] = useState(false)
 
   const manejarCambio = (e) => {
     setDatos({ ...datos, [e.target.name]: e.target.value })
@@ -36,15 +55,30 @@ function FormularioProducto({ onCrear }) {
     setErrores({ ...errores, mascotas: '' })
   }
 
-  const manejarEnvio = (e) => {
+  const manejarEnvio = async (e) => {
     e.preventDefault()
+    if (enviando) return
+
     const nuevosErrores = validarProducto(datos)
     setErrores(nuevosErrores)
     if (Object.keys(nuevosErrores).length > 0) return
 
-    onCrear(datos)
-    setCreado(datos.nombre.trim())
-    setDatos(DATOS_VACIOS)
+    setEnviando(true)
+    try {
+      const resultado = await onCrear(datos)
+      if (resultado?.ok === false) {
+        setErrorGeneral(resultado.mensaje || 'No se pudo guardar el producto.')
+        return
+      }
+      setErrorGeneral('')
+      setCreado(datos.nombre.trim())
+      setAviso(resultado?.mensaje || '')
+      if (!editando) setDatos(DATOS_VACIOS)
+    } catch {
+      setErrorGeneral('No se pudo guardar el producto. Intenta nuevamente.')
+    } finally {
+      setEnviando(false)
+    }
   }
 
   return (
@@ -77,15 +111,30 @@ function FormularioProducto({ onCrear }) {
         onChange={(e) => setDatos({ ...datos, requiereReceta: e.target.checked })}
       />
 
-      <p className="nota-imagen">La imagen del producto será una imagen genérica por defecto.</p>
+      <p className="nota-imagen">
+        {editando
+          ? 'La imagen actual del producto se conserva.'
+          : 'La imagen del producto será una imagen genérica por defecto.'}
+      </p>
 
-      {creado && (
-        <div className="alert alert-success" role="status">
-          Producto «{creado}» agregado al catálogo (se guarda solo en memoria).
+      {errorGeneral && (
+        <div className="alert alert-danger" role="alert">
+          {errorGeneral}
         </div>
       )}
 
-      <Boton tipo="submit">Crear producto</Boton>
+      {creado && (
+        <div className="alert alert-success" role="status">
+          {editando
+            ? `Producto «${creado}» actualizado.`
+            : `Producto «${creado}» agregado al catálogo.`}
+          {aviso ? ` ${aviso}` : ''}
+        </div>
+      )}
+
+      <Boton tipo="submit" disabled={enviando}>
+        {enviando ? 'Guardando...' : editando ? 'Guardar cambios' : 'Crear producto'}
+      </Boton>
     </Form>
   )
 }

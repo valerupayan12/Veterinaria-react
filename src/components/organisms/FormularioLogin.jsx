@@ -9,6 +9,7 @@ function FormularioLogin({ onIngresar }) {
   const [datos, setDatos] = useState({ email: '', password: '' })
   const [errores, setErrores] = useState({})
   const [errorGeneral, setErrorGeneral] = useState('')
+  const [enviando, setEnviando] = useState(false)
 
   const manejarCambio = (e) => {
     setDatos({ ...datos, [e.target.name]: e.target.value })
@@ -16,14 +17,23 @@ function FormularioLogin({ onIngresar }) {
     setErrorGeneral('')
   }
 
-  const manejarEnvio = (e) => {
+  const manejarEnvio = async (e) => {
     e.preventDefault()
+    if (enviando) return
+
     const nuevosErrores = validarLogin(datos)
     setErrores(nuevosErrores)
     if (Object.keys(nuevosErrores).length > 0) return
 
-    const correcto = onIngresar(datos)
-    if (!correcto) setErrorGeneral('Correo o contraseña incorrectos')
+    setEnviando(true)
+    try {
+      const correcto = await onIngresar(datos)
+      if (!correcto) setErrorGeneral('Correo o contraseña incorrectos')
+    } catch {
+      setErrorGeneral('No se pudo conectar con el servidor. Intenta nuevamente.')
+    } finally {
+      setEnviando(false)
+    }
   }
 
   return (
@@ -64,8 +74,8 @@ function FormularioLogin({ onIngresar }) {
           </p>
         )}
 
-        <button className="entrar-btn" type="submit">
-          Entrar
+        <button className="entrar-btn" type="submit" disabled={enviando}>
+          {enviando ? 'Ingresando...' : 'Entrar'}
         </button>
         <Link to="/registro" className="registrar-btn">
           Registrarse
